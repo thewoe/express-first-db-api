@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     // Validate request
     // Access data model
-    const newUser = { ...req.body, "UserID": tableOfUsers.length++ };
+    const newUser = { ...req.body, "UserID": tableOfUsers.reduce((maxval,current) => Math.max(maxval,current)) + 1 };
     tableOfUsers.push(newUser);
     // Response to request
     res.json(newUser);

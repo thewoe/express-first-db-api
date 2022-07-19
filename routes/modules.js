@@ -4,6 +4,7 @@ import { tableOfModules } from '../data/tableOfModules.js';
 
 // Configure CRUDL endpoints ---------------------
 const router = Router();
+
 // List all modules
 router.get('/', (req, res) => {
     // Validate request
@@ -26,7 +27,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
     // Validate request
     // Access data model
-    const newModule = { ...req.body, "ModuleID": tableOfModules.length++ };
+    const newModule = { ...req.body, "ModuleID": tableOfModules.reduce((maxval,current) => Math.max(maxval,current)) + 1 };
     tableOfModules.push(newModule);
     // Response to request
     res.json(newModule);
