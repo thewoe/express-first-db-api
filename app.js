@@ -1,7 +1,8 @@
 // Imports ---------------------------------------
 import express from 'express';
-import modulesRouter from './routers/modules.js';
-import usersRouter from './routers/users.js';
+import cors from 'cors';
+import modulesRouter from './routers/modules-router.js';
+import usersRouter from './routers/users-router.js';
 
 // Configure express app -------------------------
 const app = express();
@@ -13,6 +14,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
+app.use(cors({origin: '*'}));
 app.use(express.json());
 
 // Configure routes ------------------------------

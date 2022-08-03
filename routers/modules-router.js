@@ -1,9 +1,15 @@
 // Imports ---------------------------------------
 import { Router } from 'express';
-import controller from '../controllers/users-controller.js';
+import model from '../controllers/modules-model.js';
+import schema from '../controllers/modules-schema.js';
+import records from '../data/tableOfModules.js';
+import Controller from '../controllers/Controller.js';
 
 // Configure CRUDL endpoints ---------------------
 const router = Router();
+
+// Configure controller ---- ---------------------
+const controller = new Controller(model, schema, records);
 
 // Create record
 router.post('/', controller.post);
@@ -17,7 +23,7 @@ router.put('/:id', controller.put);
 // Delete specific record
 router.delete('/:id', controller.delete);
 
-// List all users
+// List all modules
 router.get('/', controller.list);
 
 export default router;
