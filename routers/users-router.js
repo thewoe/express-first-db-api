@@ -1,16 +1,24 @@
 // Imports ---------------------------------------
 import { Router } from 'express';
-import model from '../controllers/users-model.js';
-import schema from '../controllers/users-schema.js';
-import records from '../data/tableOfUsers.js';
-import Controller from '../controllers/Controller.js';
+import Validator from '../validator/Validator.js';
+import schema from '../validator/users-schema.js';
+import Accessor from '../model/datafiles/Accessor.js';
+import model from '../model/datafiles/users-model.js';
+import Controller from '../controller/Controller.js';
 
 // Configure CRUDL endpoints ---------------------
 const router = Router();
 
-// Configure controller ---- ---------------------
-const controller = new Controller(model, schema, records);
+// Configure validator ---------------------------
+const validator = new Validator(schema);
 
+// Configure accessor ----------------------------
+const accessor = new Accessor(model);
+
+// Configure controller --------------------------
+const controller = new Controller(validator, accessor);
+
+// Methods ---------------------------------------
 // Create record
 router.post('/', controller.post);
 
