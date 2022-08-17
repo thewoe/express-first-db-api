@@ -18,12 +18,12 @@ export class Controller {
     };
 
     // Read specific record
-    get = (req, res) => {
+    get = async (req, res) => {
         // Validate request
         const { isError, message: validatorMessage } = this.validator.validateID(req.params.id);
         if (isError) return res.status(400).json({ Message: validatorMessage });
         // Access data model
-        const { isSuccess, result, message: accessorMessage } = this.accessor.read(req.params.id);
+        const { isSuccess, result, message: accessorMessage } = await this.accessor.read(req.params.id);
         if (!isSuccess) return res.status(404).json({ Message: accessorMessage });
         // Response to request
         res.json(result);
@@ -54,11 +54,11 @@ export class Controller {
     };
 
     // List all modules
-    list = (req, res) => {
+    list = async (req, res) => {
         // Validate request
         // No validation required
         // Access data model
-        const { isSuccess, result, message: accessorMessage } = this.accessor.list();
+        const { isSuccess, result, message: accessorMessage } = await this.accessor.list();
         if (!isSuccess) return res.status(404).json({ Message: accessorMessage });
         // Response to request
         res.json(result);

@@ -1,8 +1,10 @@
 // Imports ---------------------------------------
-import records from './tableOfModules.js';
+import dbConn from '../database/database.js';
 
 // Model -----------------------------------------
 const idKey = 'ModuleID';
 const mutableKeys = ['ModuleName', 'ModuleCode', 'ModuleLevel', 'ModuleLeaderID', 'ModuleImageURL'];
 
-export default { idKey, mutableKeys, records };
+// Conformance -----------------------------------
+
+export default { dbConn, idKey, mutableKeys };
