@@ -6,12 +6,12 @@ export class Controller {
 
     // Methods ---------------------------------------
     // Create record
-    post = (req, res) => {
+    post = async (req, res) => {
         // Validate request
         const { isError, message: validatorMessage } = this.validator.validateCreate(req.body);
         if (isError) return res.status(400).json({ Message: validatorMessage });
         // Access data model
-        const { isSuccess, result, message: accessorMessage } = this.accessor.create(req.body);
+        const { isSuccess, result, message: accessorMessage } = await this.accessor.create(req.body);
         if (!isSuccess) return res.status(404).json({ Message: accessorMessage });
         // Response to request
         res.json(result);
@@ -30,24 +30,24 @@ export class Controller {
     };
 
     // Update specific record
-    put = (req, res) => {
+    put = async (req, res) => {
         // Validate request
         const { isError, message: validatorMessage } = this.validator.validateUpdate({ id: req.params.id, obj: req.body });
         if (isError) return res.status(400).json({ Message: validatorMessage });
         // Access data model
-        const { isSuccess, result, message: accessorMessage } = this.accessor.update(req.params.id, req.body);
+        const { isSuccess, result, message: accessorMessage } = await this.accessor.update(req.params.id, req.body);
         if (!isSuccess) return res.status(404).json({ Message: accessorMessage });
         // Response to request
         res.json(result);
     };
 
     // Delete specific record
-    delete = (req, res) => {
+    delete = async (req, res) => {
         // Validate request
         const { isError, message: validatorMessage } = this.validator.validateID(req.params.id);
         if (isError) return res.status(400).json({ Message: validatorMessage });
         // Access data model
-        const { isSuccess, result, message: accessorMessage } = this.accessor.delete(req.params.id);
+        const { isSuccess, result, message: accessorMessage } = await this.accessor.delete(req.params.id);
         if (!isSuccess) return res.status(404).json({ Message: accessorMessage });
         // Response to request
         res.json({ Message: accessorMessage });
